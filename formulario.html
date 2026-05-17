@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Solicitar Demo Gratis — WebBoost</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#04070f;--ink-2:#080d1a;--ink-3:#0d1425;
+  --surface:#111827;--surface-2:#1a2236;
+  --border:rgba(255,255,255,.07);--border-2:rgba(255,255,255,.13);
+  --blue:#1a6bff;--blue-2:#3d87ff;--blue-3:#6aa0ff;--blue-dark:#0d4fcb;
+  --cyan:#00c2ff;--indigo:#4f4dff;--white:#ffffff;
+  --text:#dde6f5;--text-muted:#6b7fa8;
+  --green:#4ade80;--red:#f87171;--amber:#fbbf24;
+  --radius-sm:10px;--radius:16px;--radius-lg:24px;--radius-xl:32px;
+  --ease:cubic-bezier(.4,0,.2,1);--ease-out:cubic-bezier(0,0,.2,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --f-display:'Outfit',sans-serif;--f-mono:'JetBrains Mono',monospace;
+  --shadow:0 4px 24px rgba(0,0,0,.45);--shadow-lg:0 24px 70px rgba(0,0,0,.65);
+  --shadow-blue:0 8px 32px rgba(26,107,255,.4);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-display);background:var(--ink);color:var(--text);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+/* CURSOR */
+.cursor{position:fixed;width:9px;height:9px;background:var(--blue);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:opacity .2s}
+.cursor-ring{position:fixed;width:34px;height:34px;border:1.5px solid rgba(26,107,255,.5);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+@media(hover:none){.cursor,.cursor-ring{display:none}}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:.65rem 0;background:rgba(4,7,15,.95);backdrop-filter:blur(24px) saturate(1.8);border-bottom:1px solid var(--border)}
+.wrap{width:min(90%,1160px);margin-inline:auto}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo-wrap{display:flex;align-items:center;gap:.6rem;font-size:1.18rem;font-weight:900;color:var(--white);letter-spacing:-.03em}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);animation:pulse 1.4s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+.nav-back{display:inline-flex;align-items:center;gap:.45rem;font-size:.82rem;font-weight:600;color:var(--text-muted);padding:.4rem .85rem;border-radius:8px;border:1px solid var(--border-2);background:rgba(255,255,255,.04);transition:.2s}
+.nav-back:hover{color:var(--white);background:rgba(255,255,255,.09)}
+.nav-back svg{width:14px;height:14px}
+
+/* HERO BG */
+.page-bg{position:fixed;inset:0;pointer-events:none;z-index:0}
+.page-bg .mesh{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(26,107,255,.18) 0%,transparent 65%),radial-gradient(ellipse 45% 40% at 90% 70%,rgba(0,194,255,.09) 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 5% 80%,rgba(79,77,255,.08) 0%,transparent 55%)}
+.page-bg .grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 85% 75% at 50% 50%,black 20%,transparent 100%)}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:drift 9s ease-in-out infinite alternate}
+.o1{width:500px;height:500px;background:rgba(26,107,255,.1);top:-150px;left:-100px}
+.o2{width:380px;height:380px;background:rgba(0,194,255,.06);bottom:-100px;right:-80px;animation-delay:-4.5s}
+@keyframes drift{0%{transform:translate(0,0)}100%{transform:translate(28px,18px)}}
+
+/* LAYOUT */
+.page-wrap{position:relative;z-index:1;padding:7rem 0 5rem;min-height:100vh;display:flex;align-items:flex-start;justify-content:center}
+.page-inner{width:100%;max-width:940px;margin-inline:auto;display:grid;grid-template-columns:1fr 1.4fr;gap:3.5rem;align-items:start}
+
+/* LEFT COLUMN */
+.info-col{padding-top:.5rem}
+.eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-2);margin-bottom:.65rem;display:block}
+.h2{font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:900;line-height:1.08;letter-spacing:-.03em;color:var(--white)}
+.gradient-text{background:linear-gradient(130deg,var(--blue-2) 0%,var(--cyan) 60%,#a78bfa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.div-line{width:52px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--blue),var(--cyan));margin:1rem 0 1.5rem}
+.lead{font-size:1rem;color:var(--text-muted);line-height:1.8;max-width:400px}
+
+/* BENEFITS */
+.benefits{display:flex;flex-direction:column;gap:.6rem;margin-top:1.75rem}
+.bene{display:flex;align-items:center;gap:.65rem;font-size:.87rem;color:var(--text-muted)}
+.bene-ico{width:22px;height:22px;border-radius:7px;background:rgba(26,107,255,.15);border:1px solid rgba(26,107,255,.25);display:grid;place-items:center;font-size:.62rem;color:var(--blue-2);font-weight:800;flex-shrink:0}
+
+/* WA BTN */
+.wa-btn{display:flex;align-items:center;gap:.9rem;background:#075e54;border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:.9rem 1.2rem;font-weight:700;font-size:.9rem;color:#fff;transition:transform .25s var(--spring),box-shadow .25s,background .2s;width:fit-content;margin-top:1.5rem}
+.wa-btn:hover{background:#128c7e;transform:translateY(-2px);box-shadow:0 10px 26px rgba(7,94,84,.4)}
+.wa-icon-wrap{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:1.2rem;flex-shrink:0}
+.wa-sub{font-size:.68rem;font-weight:400;opacity:.75;display:block;margin-top:.05rem}
+
+/* SOCIAL ROW */
+.soc-row{display:flex;gap:.5rem;margin-top:1.2rem;align-items:center}
+.soc-btn{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;border:1px solid var(--border-2);background:rgba(255,255,255,.04);color:var(--text-muted);transition:transform .22s var(--spring),background .2s,border-color .2s,color .2s}
+.soc-btn svg{width:17px;height:17px}
+.soc-btn:hover{transform:translateY(-2px) scale(1.08)}
+.soc-btn.fb:hover{background:rgba(24,119,242,.2);border-color:rgba(24,119,242,.5);color:#4a90ff}
+.soc-btn.ig:hover{background:rgba(225,48,108,.18);border-color:rgba(225,48,108,.5);color:#f06292}
+.soc-btn.wa:hover{background:rgba(37,211,102,.18);border-color:rgba(37,211,102,.5);color:#25d366}
+
+/* TRUST BADGE */
+.trust-box{margin-top:1.6rem;display:flex;align-items:center;gap:.7rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.7rem 1rem;font-size:.78rem;color:var(--text-muted);width:fit-content}
+.trust-avs{display:flex}
+.trust-av{width:26px;height:26px;border-radius:50%;border:2px solid var(--ink);background:linear-gradient(135deg,var(--blue),var(--cyan));display:grid;place-items:center;font-size:.55rem;font-weight:800;color:#fff;margin-right:-7px}
+.trust-text strong{color:var(--white)}
+
+/* ══ FORM CARD ══ */
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:2.2rem;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.form-card::before{content:'';position:absolute;top:-60px;right:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(26,107,255,.14) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.cf-title{font-size:1.12rem;font-weight:800;color:var(--white);margin-bottom:.28rem;position:relative}
+.cf-sub{font-size:.8rem;color:var(--text-muted);margin-bottom:1.65rem;position:relative}
+
+/* FORM FIELDS */
+.fg{margin-bottom:1rem;position:relative}
+.fg label{display:block;font-size:.75rem;font-weight:600;color:var(--text-muted);margin-bottom:.38rem;letter-spacing:.04em;text-transform:uppercase}
+.fg label .req{color:var(--blue-2)}
+.fg label .opt{color:var(--text-muted);font-weight:400;letter-spacing:0;text-transform:none;font-size:.68rem;margin-left:.2rem}
+.fg input,.fg textarea,.fg select{width:100%;background:var(--ink-2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:.78rem .95rem;font-family:var(--f-display);font-size:.88rem;color:var(--white);outline:none;transition:border-color .2s,box-shadow .2s;resize:vertical}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--text-muted)}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,107,255,.14)}
+.fg select{color:var(--white);cursor:pointer}
+.fg select option{background:var(--ink-2)}
+.fg textarea{min-height:90px}
+.ferr{display:none;font-size:.7rem;color:var(--red);margin-top:.35rem;font-weight:500}
+.fg.has-err input,.fg.has-err select,.fg.has-err textarea{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.11)}
+.fg.has-err .ferr{display:block}
+#otroField{display:none;margin-top:.7rem}
+.char-cnt{font-size:.65rem;color:var(--text-muted);margin-top:.25rem;text-align:right}
+.char-cnt.ok{color:var(--green)}
+.char-cnt.near{color:var(--amber)}
+
+/* 2-col grid inside form */
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:540px){.fg-row{grid-template-columns:1fr}}
+
+/* CHECKBOX */
+.cb-row{display:flex;align-items:center;gap:.75rem;background:var(--ink-2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:.78rem .95rem;cursor:pointer;transition:border-color .2s,background .2s;margin-top:.25rem}
+.cb-row:hover{border-color:var(--blue-2);background:rgba(26,107,255,.04)}
+.cb-row input[type=checkbox]{width:18px;height:18px;accent-color:var(--blue);cursor:pointer;flex-shrink:0}
+.cb-row label{font-size:.85rem;color:var(--text);cursor:pointer;user-select:none}
+.cb-row.has-err{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.11)}
+
+/* SUBMIT */
+.btn{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--f-display);font-weight:700;font-size:.9rem;padding:.82rem 1.75rem;border-radius:100px;border:none;cursor:pointer;transition:transform .25s var(--spring),box-shadow .25s,background .2s,opacity .2s;white-space:nowrap;position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.1),transparent);opacity:0;transition:opacity .2s}
+.btn:hover::after{opacity:1}
+.btn:hover{transform:translateY(-3px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;box-shadow:var(--shadow-blue)}
+.btn-primary:hover{box-shadow:0 12px 40px rgba(26,107,255,.5)}
+.btn-icon{width:1rem;height:1rem;transition:transform .2s var(--spring)}
+.btn:hover .btn-icon{transform:translateX(4px)}
+.cf-submit{width:100%;justify-content:center;border-radius:var(--radius-sm);padding:.95rem;margin-top:1.2rem}
+.cf-submit .spin{display:none;width:17px;height:17px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cf-submit.loading .spin{display:block}
+.cf-submit.loading .btxt{opacity:.55}
+.cf-submit:disabled{opacity:.7;cursor:not-allowed;transform:none!important}
+.privacy-note{font-size:.72rem;color:var(--text-muted);text-align:center;margin-top:.7rem}
+
+/* SUCCESS */
+.form-ok{display:none;text-align:center;padding:2.5rem 1rem}
+.form-ok .ok-ico{font-size:3.2rem;margin-bottom:.8rem;animation:bounce .6s var(--spring)}
+@keyframes bounce{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+.form-ok strong{display:block;font-size:1.15rem;font-weight:800;color:var(--white);margin-bottom:.5rem}
+.form-ok p{font-size:.87rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.4rem}
+.reset-btn{background:none;border:none;color:var(--text-muted);font-size:.78rem;cursor:pointer;margin-top:.5rem;transition:.2s}
+.reset-btn:hover{color:var(--white)}
+
+/* TOAST */
+#toast{position:fixed;top:1.4rem;right:1.4rem;z-index:3000;display:flex;align-items:center;gap:.8rem;background:rgba(11,16,30,.97);border:1px solid var(--border-2);border-radius:var(--radius);padding:.9rem 1.3rem;box-shadow:0 20px 50px rgba(0,0,0,.7);backdrop-filter:blur(18px);min-width:270px;max-width:340px;transform:translateX(calc(100% + 2rem));transition:transform .4s var(--spring),opacity .3s;opacity:0}
+#toast.show{transform:translateX(0);opacity:1}
+#toast.suc{border-color:rgba(74,222,128,.3)}
+#toast.err{border-color:rgba(248,113,113,.3)}
+.toast-ico{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:1rem;flex-shrink:0}
+.toast-ico.s{background:rgba(74,222,128,.14)}.toast-ico.e{background:rgba(248,113,113,.14)}
+.toast-title{font-size:.87rem;font-weight:700;color:var(--white)}
+.toast-msg{font-size:.75rem;color:var(--text-muted);margin-top:.12rem}
+
+/* REVEAL */
+[data-anim]{opacity:0;transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+[data-anim="fade-up"]{transform:translateY(28px)}
+[data-anim="fade-left"]{transform:translateX(-28px)}
+[data-anim="fade-right"]{transform:translateX(28px)}
+[data-anim].anim-in{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:760px){
+  .page-inner{grid-template-columns:1fr;gap:2rem}
+  .info-col{padding-top:0}
+}
+@media(max-width:500px){
+  .form-card{padding:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- TOAST -->
+<div id="toast">
+  <div class="toast-ico" id="toastIco"></div>
+  <div><div class="toast-title" id="toastTitle"></div><div class="toast-msg" id="toastMsg"></div></div>
+</div>
+
+<!-- BACKGROUND -->
+<div class="page-bg">
+  <div class="mesh"></div>
+  <div class="grid-bg"></div>
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+</div>
+
+<!-- NAV MINIMAL -->
+<header id="nav">
+  <div class="wrap">
+    <div class="nav-inner">
+      <a href="/" class="logo-wrap">
+        <div class="logo-dot"></div>
+        WebBoost
+      </a>
+      <a href="/" class="nav-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Volver al inicio
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="page-wrap">
+  <div class="wrap">
+    <div class="page-inner">
+
+      <!-- INFO IZQUIERDA -->
+      <div class="info-col" data-anim="fade-right">
+        <span class="eyebrow">Demo gratuita</span>
+        <h1 class="h2">Cuéntanos sobre<br>tu <span class="gradient-text">negocio</span></h1>
+        <div class="div-line"></div>
+        <p class="lead">En 30 minutos te mostramos exactamente cómo puede verse tu negocio en internet. Sin costo, sin compromisos.</p>
+
+        <div class="benefits">
+          <div class="bene"><div class="bene-ico">⚡</div>Respuesta en menos de 24 horas</div>
+          <div class="bene"><div class="bene-ico">🎁</div>Demo personalizada sin costo</div>
+          <div class="bene"><div class="bene-ico">🔒</div>Tus datos son 100% privados</div>
+          <div class="bene"><div class="bene-ico">🚫</div>Sin contratos ni compromisos</div>
+          <div class="bene"><div class="bene-ico">📱</div>Te contactamos por WhatsApp o email</div>
+        </div>
+
+        <a href="https://wa.me/50378227317?text=Hola%2C%20quiero%20una%20demo%20gratis%20de%20WebBoost" target="_blank" class="wa-btn">
+          <div class="wa-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.05 2.05C6.5 2.05 2 6.55 2 12.1c0 1.79.47 3.52 1.36 5.04L2 22l5.04-1.32A10.02 10.02 0 0 0 12.05 22C17.6 22 22 17.5 22 11.95 22 6.5 17.6 2.05 12.05 2.05zm0 18.35a8.3 8.3 0 0 1-4.23-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.27 8.27 0 0 1-1.27-4.45c0-4.58 3.73-8.3 8.3-8.3 4.56 0 8.3 3.72 8.3 8.3 0 4.57-3.74 8.3-8.33 8.3z"/></svg>
+          </div>
+          <div>También por WhatsApp<span class="wa-sub">Respondemos en &lt;1 hora</span></div>
+        </a>
+
+        <p style="font-size:.72rem;color:var(--text-muted);margin-top:.8rem">O síguenos en redes:</p>
+        <div class="soc-row">
+          <a class="soc-btn fb" href="https://www.facebook.com/share/1DmSqbHrGc/?mibextid=wwXIfr" target="_blank" title="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a class="soc-btn ig" href="https://www.instagram.com/webbooost?igsh=aWMzd2trMzR5YXlz" target="_blank" title="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a class="soc-btn wa" href="https://wa.me/50378227317" target="_blank" title="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12.05 2.05C6.5 2.05 2 6.55 2 12.1c0 1.79.47 3.52 1.36 5.04L2 22l5.04-1.32A10.02 10.02 0 0 0 12.05 22C17.6 22 22 17.5 22 11.95 22 6.5 17.6 2.05 12.05 2.05zm0 18.35a8.3 8.3 0 0 1-4.23-1.15l-.3-.18-3.1.81.83-3.02-.2-.31a8.27 8.27 0 0 1-1.27-4.45c0-4.58 3.73-8.3 8.3-8.3 4.56 0 8.3 3.72 8.3 8.3 0 4.57-3.74 8.3-8.33 8.3z"/></svg>
+          </a>
+        </div>
+
+        <div class="trust-box">
+          <div class="trust-avs">
+            <div class="trust-av">C</div><div class="trust-av">M</div><div class="trust-av">A</div>
+          </div>
+          <div class="trust-text"><strong>+50 negocios</strong> ya confían en WebBoost</div>
+        </div>
+      </div>
+
+      <!-- FORMULARIO DERECHA -->
+      <div class="form-card" data-anim="fade-left">
+        <div id="formFields">
+          <div class="cf-title">📋 Cuéntanos sobre tu negocio</div>
+          <div class="cf-sub">Completá el formulario y te contactamos en menos de 24 horas.</div>
+
+          <!-- NOMBRE + EMAIL -->
+          <div class="fg-row">
+            <div class="fg" id="fg-nombre">
+              <label>Nombre completo <span class="req">*</span></label>
+              <input type="text" id="f-nombre" placeholder="Ej: Carlos Hernández" autocomplete="name" oninput="clearErr('fg-nombre')"/>
+              <div class="ferr" id="err-nombre">Ingresa tu nombre (mínimo 3 caracteres)</div>
+            </div>
+            <div class="fg" id="fg-email">
+              <label>Correo electrónico <span class="req">*</span></label>
+              <input type="email" id="f-email" placeholder="tu@correo.com" autocomplete="email" oninput="clearErr('fg-email')"/>
+              <div class="ferr" id="err-email">Ingresa un correo válido</div>
+            </div>
+          </div>
+
+          <!-- TEL + NEGOCIO -->
+          <div class="fg-row">
+            <div class="fg">
+              <label>WhatsApp / Teléfono <span class="opt">(opcional)</span></label>
+              <input type="tel" id="f-tel" placeholder="+503 7000-0000" autocomplete="tel"/>
+            </div>
+            <div class="fg" id="fg-negocio">
+              <label>Nombre de tu negocio <span class="req">*</span></label>
+              <input type="text" id="f-negocio" placeholder="Tu marca o negocio" oninput="clearErr('fg-negocio')"/>
+              <div class="ferr" id="err-negocio">Ingresa el nombre de tu negocio</div>
+            </div>
+          </div>
+
+          <!-- TIPO -->
+          <div class="fg" id="fg-tipo">
+            <label>¿Qué necesitas? <span class="req">*</span></label>
+            <select id="f-tipo" onchange="handleTipo();clearErr('fg-tipo')">
+              <option value="">Selecciona una opción...</option>
+              <option value="Página web">🌐 Página web para mi negocio</option>
+              <option value="Sistema de facturación">🧾 Sistema de facturación</option>
+              <option value="Catálogo / Tienda online">🛒 Catálogo / Tienda online</option>
+              <option value="Automatización">⚙️ Automatización de procesos</option>
+              <option value="Ferretería">🔧 Ferretería</option>
+              <option value="Tienda de ropa / moda">👗 Tienda de ropa / moda</option>
+              <option value="Barbería / Salón de belleza">✂️ Barbería / Salón de belleza</option>
+              <option value="Restaurante / Comida">🍔 Restaurante / Comida</option>
+              <option value="Farmacia">💊 Farmacia</option>
+              <option value="Servicios profesionales">💼 Servicios profesionales</option>
+              <option value="Otro">✏️ Otro tipo de negocio</option>
+            </select>
+            <div id="otroField" style="display:none;margin-top:.7rem">
+              <input type="text" id="f-otro" placeholder="Describe tu tipo de negocio..."/>
+            </div>
+            <div class="ferr" id="err-tipo">Selecciona qué necesitas</div>
+          </div>
+
+          <!-- MENSAJE -->
+          <div class="fg" id="fg-msg">
+            <label>Cuéntanos más <span class="req">*</span></label>
+            <textarea id="f-msg" placeholder="Ej: Quiero una página web con catálogo de productos y pedidos por WhatsApp..." rows="4" oninput="updateCharCount()"></textarea>
+            <div class="char-cnt" id="charCnt">0 / 10 caracteres mínimo</div>
+            <div class="ferr" id="err-msg">Describe qué necesitas (mínimo 10 caracteres)</div>
+          </div>
+
+          <!-- CHECKBOX ANTI-SPAM -->
+          <div class="fg" id="fg-bot">
+            <label>Verificación <span class="req">* Toca la manita</span></label>
+            <div class="cb-row" id="cbRow" onclick="toggleCheck()">
+              <input type="checkbox" id="f-nobot" readonly/>
+              <label for="f-nobot">✋ Confirmo que no soy un bot y quiero recibir información de WebBoost</label>
+            </div>
+            <div class="ferr" id="err-bot">Por favor confirma que no eres un bot</div>
+          </div>
+
+          <button class="btn btn-primary cf-submit" id="submitBtn" onclick="submitForm()">
+            <div class="spin"></div>
+            <span class="btxt">🚀 Solicitar demo gratis</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <p class="privacy-note">🔒 Tu información es privada y nunca se comparte con terceros.</p>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="form-ok" id="formOk">
+          <div class="ok-ico">🎉</div>
+          <strong>¡Solicitud enviada con éxito!</strong>
+          <p>Recibimos tu mensaje y te contactaremos en menos de 24 horas para coordinar tu demo gratuita.<br>¡Gracias por confiar en WebBoost!</p>
+          <div style="display:flex;flex-direction:column;gap:.6rem;align-items:center">
+            <a href="https://wa.me/50378227317?text=Hola%2C%20acabo%20de%20enviar%20una%20solicitud%20en%20WebBoost" target="_blank" class="btn btn-primary" style="width:fit-content">💬 Escríbenos por WhatsApp</a>
+            <a href="/" class="btn" style="background:rgba(255,255,255,.06);color:var(--white);border:1px solid var(--border-2);width:fit-content">← Volver al inicio</a>
+            <button onclick="resetForm()" class="reset-btn">Enviar otra solicitud →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script>
+/* ══════════════════════════════════
+   CONFIG TELEGRAM — igual que el sitio
+══════════════════════════════════ */
+const TG_TOKEN   = '8237099777:AAGIzOIWxYyR37fZQKjBSGUBUQak6pOn24Q';
+const TG_CHAT_ID = '5257502158';
+
+/* ══ CURSOR ══ */
+const cursorEl=document.getElementById('cursor');
+const ringEl=document.getElementById('cursorRing');
+let rx=0,ry=0,mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursorEl.style.left=mx+'px';cursorEl.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ringEl.style.left=rx+'px';ringEl.style.top=ry+'px';requestAnimationFrame(animRing)})();
+document.querySelectorAll('a,button,.btn,.cb-row').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ringEl.style.width='56px';ringEl.style.height='56px';ringEl.style.borderColor='rgba(26,107,255,.7)';cursorEl.style.opacity='0'});
+  el.addEventListener('mouseleave',()=>{ringEl.style.width='34px';ringEl.style.height='34px';ringEl.style.borderColor='rgba(26,107,255,.5)';cursorEl.style.opacity='1'});
+});
+
+/* ══ REVEAL ══ */
+const revIO=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('anim-in');revIO.unobserve(e.target);}});
+},{threshold:.08});
+document.querySelectorAll('[data-anim]').forEach(el=>revIO.observe(el));
+
+/* ══ PRE-FILL desde URL param ?servicio=X ══ */
+(function prefill(){
+  const params=new URLSearchParams(window.location.search);
+  const s=params.get('servicio');
+  if(!s) return;
+  const sel=document.getElementById('f-tipo');
+  for(let i=0;i<sel.options.length;i++){
+    if(sel.options[i].value===decodeURIComponent(s)){sel.selectedIndex=i;break;}
+  }
+  handleTipo();
+})();
+
+/* ══ TIPO OTRO ══ */
+function handleTipo(){
+  const v=document.getElementById('f-tipo').value;
+  const of=document.getElementById('otroField');
+  of.style.display=v==='Otro'?'block':'none';
+  if(v!=='Otro')document.getElementById('f-otro').value='';
+}
+
+/* ══ CHECKBOX ══ */
+function toggleCheck(){
+  const cb=document.getElementById('f-nobot');
+  cb.checked=!cb.checked;
+  const row=document.getElementById('cbRow');
+  row.style.background=cb.checked?'rgba(26,107,255,.08)':'';
+  row.style.borderColor=cb.checked?'rgba(26,107,255,.35)':'';
+  if(cb.checked){clearErrEl('fg-bot');row.classList.remove('has-err');}
+}
+
+/* ══ CHAR COUNTER ══ */
+const MIN_MSG=10;
+function updateCharCount(){
+  const len=document.getElementById('f-msg').value.trim().length;
+  const cnt=document.getElementById('charCnt');
+  cnt.textContent=len+' / '+MIN_MSG+' caracteres mínimo';
+  cnt.className='char-cnt'+(len>=MIN_MSG?' ok':len>0?' near':'');
+  if(len>=MIN_MSG)clearErrEl('fg-msg');
+}
+
+/* ══ ERRORS ══ */
+function clearErr(id){const el=document.getElementById(id);if(el)el.classList.remove('has-err');}
+function clearErrEl(id){clearErr(id);}
+function setErr(fgId,msg){
+  const fg=document.getElementById(fgId);
+  if(fg){fg.classList.add('has-err');const err=fg.querySelector('.ferr');if(err&&msg)err.textContent=msg;}
+}
+
+/* ══ VALIDATE ══ */
+function validateForm(){
+  let ok=true;
+  const nombre  =document.getElementById('f-nombre').value.trim();
+  const email   =document.getElementById('f-email').value.trim();
+  const negocio =document.getElementById('f-negocio').value.trim();
+  const tipo    =document.getElementById('f-tipo').value;
+  const msg     =document.getElementById('f-msg').value.trim();
+  const nobot   =document.getElementById('f-nobot').checked;
+
+  if(nombre.length<3){setErr('fg-nombre','Ingresa tu nombre completo (mínimo 3 caracteres)');ok=false;}else clearErr('fg-nombre');
+  const emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  if(!emailRe.test(email)){setErr('fg-email','Ingresa un correo electrónico válido');ok=false;}else clearErr('fg-email');
+  if(negocio.length<2){setErr('fg-negocio','Ingresa el nombre de tu negocio');ok=false;}else clearErr('fg-negocio');
+  if(!tipo){setErr('fg-tipo','Selecciona qué necesitas');ok=false;}else clearErr('fg-tipo');
+  if(msg.length<MIN_MSG){setErr('fg-msg','Describe qué necesitas (mínimo '+MIN_MSG+' caracteres)');ok=false;}else clearErr('fg-msg');
+  if(!nobot){document.getElementById('fg-bot').classList.add('has-err');document.getElementById('cbRow').classList.add('has-err');ok=false;}
+  else{clearErr('fg-bot');document.getElementById('cbRow').classList.remove('has-err');}
+  return ok;
+}
+
+/* ══ TELEGRAM (mismo código robusto) ══ */
+async function enviarTelegram(data){
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  const tipo=data.tipo==='Otro'&&data.tipoOtro?data.tipoOtro:(data.tipo||'—');
+  const htmlText=
+    '🚀 <b>Nueva solicitud WebBoost</b>\n\n'+
+    '👤 <b>Nombre:</b> '+esc(data.nombre)+'\n'+
+    '📧 <b>Email:</b> '+esc(data.email)+'\n'+
+    '📱 <b>Teléfono:</b> '+esc(data.telefono||'No proporcionado')+'\n'+
+    '🏢 <b>Negocio:</b> '+esc(data.negocio)+'\n'+
+    '📊 <b>Tipo:</b> '+esc(tipo)+'\n'+
+    '📝 <b>Necesita:</b> '+esc(data.mensaje)+'\n'+
+    '🌐 <b>Origen:</b> Página /formulario';
+  const plainText=
+    '🚀 Nueva solicitud WebBoost\n\n'+
+    '👤 Nombre: '+(data.nombre||'')+'\n'+
+    '📧 Email: '+(data.email||'')+'\n'+
+    '📱 Teléfono: '+(data.telefono||'No proporcionado')+'\n'+
+    '🏢 Negocio: '+(data.negocio||'')+'\n'+
+    '📊 Tipo: '+tipo+'\n'+
+    '📝 Necesita: '+(data.mensaje||'')+'\n'+
+    '🌐 Origen: Página /formulario';
+  const API='https://api.telegram.org/bot'+TG_TOKEN+'/sendMessage';
+  async function fetchTimeout(url,opts,ms){
+    ms=ms||15000;const ctrl=new AbortController();const timer=setTimeout(()=>ctrl.abort(),ms);
+    try{return await fetch(url,Object.assign({},opts,{signal:ctrl.signal}));}finally{clearTimeout(timer);}
+  }
+  try{
+    const r=await fetchTimeout(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:TG_CHAT_ID,text:htmlText,parse_mode:'HTML'})});
+    const j=await r.json();if(j.ok)return true;
+  }catch(e1){}
+  const r2=await fetchTimeout(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:TG_CHAT_ID,text:plainText})});
+  const j2=await r2.json();if(j2.ok)return true;
+  throw new Error(j2.description||'Error Telegram');
+}
+
+/* ══ TOAST ══ */
+let toastTimer;
+function showToast(type,title,msg){
+  const el=document.getElementById('toast');
+  const ico=document.getElementById('toastIco');
+  clearTimeout(toastTimer);
+  el.className='';ico.className='toast-ico';
+  if(type==='success'){ico.textContent='✅';ico.classList.add('s');el.classList.add('show','suc');}
+  else{ico.textContent='❌';ico.classList.add('e');el.classList.add('show','err');}
+  document.getElementById('toastTitle').textContent=title;
+  document.getElementById('toastMsg').textContent=msg;
+  toastTimer=setTimeout(()=>el.classList.remove('show'),5000);
+}
+
+/* ══ SUBMIT ══ */
+let sending=false;
+async function submitForm(){
+  if(sending)return;
+  if(!validateForm()){
+    const firstErr=document.querySelector('.fg.has-err input,.fg.has-err select,.fg.has-err textarea');
+    if(firstErr){firstErr.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>firstErr.focus(),400);}
+    showToast('error','Campos incompletos','Revisa los campos marcados en rojo.');
+    return;
+  }
+  sending=true;
+  const btn=document.getElementById('submitBtn');
+  btn.classList.add('loading');btn.disabled=true;
+  document.querySelector('.btxt').textContent='⏳ Enviando...';
+  const data={
+    nombre:   document.getElementById('f-nombre').value.trim(),
+    email:    document.getElementById('f-email').value.trim(),
+    telefono: document.getElementById('f-tel').value.trim(),
+    negocio:  document.getElementById('f-negocio').value.trim(),
+    tipo:     document.getElementById('f-tipo').value,
+    tipoOtro: document.getElementById('f-otro').value.trim(),
+    mensaje:  document.getElementById('f-msg').value.trim()
+  };
+  try{
+    await enviarTelegram(data);
+    showToast('success','¡Enviado con éxito!','Te contactamos en menos de 24 horas 🚀');
+    setTimeout(()=>{
+      document.getElementById('formFields').style.display='none';
+      document.getElementById('formOk').style.display='block';
+    },800);
+  }catch(err){
+    console.error('Telegram error:',err);
+    showToast('error','Error al enviar','Por favor escríbenos por WhatsApp directamente.');
+    btn.classList.remove('loading');btn.disabled=false;
+    document.querySelector('.btxt').textContent='🚀 Solicitar demo gratis';
+    sending=false;
+  }
+}
+
+/* ══ RESET ══ */
+function resetForm(){
+  document.getElementById('formFields').style.display='block';
+  document.getElementById('formOk').style.display='none';
+  ['f-nombre','f-email','f-tel','f-negocio','f-msg','f-otro'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-tipo').value='';
+  document.getElementById('f-nobot').checked=false;
+  document.getElementById('otroField').style.display='none';
+  document.getElementById('cbRow').style.background='';
+  document.getElementById('cbRow').style.borderColor='';
+  updateCharCount();
+  const btn=document.getElementById('submitBtn');
+  btn.classList.remove('loading');btn.disabled=false;
+  document.querySelector('.btxt').textContent='🚀 Solicitar demo gratis';
+  sending=false;
+}
+</script>
+</body>
+</html>

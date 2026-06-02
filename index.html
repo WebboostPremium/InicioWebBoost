@@ -1103,7 +1103,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePreview();clos
 function selectService(tipo){const sel=document.getElementById('f-tipo');for(let i=0;i<sel.options.length;i++)if(sel.options[i].value===tipo){sel.selectedIndex=i;break}handleTipo()}
 function handleTipo(){const v=document.getElementById('f-tipo').value;document.getElementById('otroField').style.display=v==='Otro'?'block':'none';if(v!=='Otro')document.getElementById('f-otro').value=''}
 function toggleCheck(){const cb=document.getElementById('f-nobot');cb.checked=!cb.checked;const r=document.getElementById('cbRow');r.style.background=cb.checked?'var(--blue-light)':'';r.style.borderColor=cb.checked?'var(--blue)':''}
-const MIN_MSG=100;
+const MIN_MSG=10;
 function updateCharCount(){const len=document.getElementById('f-msg').value.trim().length;const cnt=document.getElementById('charCnt');cnt.textContent=len+' / '+MIN_MSG+' caracteres mínimo';cnt.className='char-cnt'+(len>=MIN_MSG?' ok':len>0?' near':'')}
 function clearErr(id){const el=document.getElementById(id);if(el)el.classList.remove('has-err')}
 function setErr(fgId,msg){const fg=document.getElementById(fgId);if(fg){fg.classList.add('has-err');const e=fg.querySelector('.ferr');if(e&&msg)e.textContent=msg}}
